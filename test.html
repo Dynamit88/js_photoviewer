@@ -1,0 +1,186 @@
+<html>
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+        }
+
+        body {
+            position: relative;
+        }
+
+        #photo-viewer {
+            position: relative;
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.59);
+            text-align: center;
+        }
+
+        #photo-viewer-close-btn {
+            display: inline-block;
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            top: 12px;
+            right: 12px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAABgCAYAAAAZz4LnAAAEtUlEQVR4AezWg49cQRwH8LNt27Zt39Xe6GyGDWv/d2euvRvX7fclc8nvpofZt3U7yTfYmfu88ZwLLV++fLmJqJB5F8GCtgvsb26e10iFHJdZAXSOtFed13CeNPyMjJ3Tdoy1OS7zF/ViFvlMcMUpbRRcG350Qr35iNzk1uHjaaMSxRUE+IBcYvlAPqhwCKW9I9B7FvYhsgtk4pcIePyBS+KCOPyOg52eCoCI+FT8+MVzfrv9+APy44+07EtoVvQSknNtzn97bf4v/8v/4oq4Ie4sbuw3p0EPJAXpR4aQbPYb+4A81EuC6urqptVq9YbFYlEqFIo1/JZHcFlobm1t7QJA/RdWTCaTGr9fQ3yEYQ7NA7pIUans7+9voe4G4oe4O4zW19cvATVQVKvVGvLz8++jvkQUpmj+aahGozFmZWU9Qn0LEkmnQghtbGxcslqtRopi4ST0Keq7kHgkgC2eqzBqs9l41JCRkfGEoYlIEOKJuImgBc3Nzcs8qlKpTkO9hNHW1lYJNfFoWlqahHbKQQsl1G63n0CVSqXeKbS9vX0FPTVT9OjoSJ+SkvKYoQkCKAqHoqc8qmNohyOoK1vN7I6OjlWgFooeHh7qKSqy+rS3Psg1bPYDih4cHOhTU1OlE9UtuqVocUf8kdvYm0dcb3Xp6emrqKtHwhBviorCFQ0NDQ9xumwUV6PgdC2hPofA7GSJTUUU0lVVVfXKbDbbuUtGmZubO436DNGpoIsXyOZxoLKy8g1wG8V1Op0SN5iEZ/I7QmS7BSNJEl5RUfH6FFzlKO56Gl5eXv4KL8MJ3GAwSPiMs3g/w608XlhYKOFZTuGlpaWn4ervhhuNRh7XFBcXzzqNA3kJzEJxfIzinnLxvrPwsrIyaVrS6NPkMF5UVPRSr9dbuHtlE3VX6GMqF38B3Ex7Ld039PmXi/diVzzb2dk5xMHRX7p0SXqtaygsBw9id3MzMo3MIK1IBJ0KuXgAEonEs0ioP/2nUC7uwXrnx+JDUNff6h/v/+UrM/ag20EQBGC8thXUtt3GtYK6ffraeIXel8wmkylnr4rzx3fe3d/9UwV1i4A2EFHa2ydE+5APAkJCiEg2lOeO25UQ8gmDSrKBa2SEkGLj2fLkHCAfoip+g5DEb+54CI8gHwRk4regJiYeTkUt8kFASOideL8nnikXr0RGqWUkhIh0HDGBHG+cH+XKONtIHLwgIx0HObHxPBsHMzaOpMBPmvgSmHkjfg9+viWOmHQcUUl8MDbeQByHICez5w9gKG18UeLXZs913LVuzrVxJGXij4hLxpbcsNfeW3EFSSEqHUdc3jcsIZ4vcppHUojKIOhUVkLFDBPecA+CQlI6irQQV/L9ZAh7TkUHckJQOoqwkJa8YqgLp+Kr0U5Qg5xM9Blh4RU5/6VfuXhE81T03EaRVfL9liwSy8Pt9uUomNFRJAV6ZE9tNPOzaBd4eSP6JNGNNNELGwU50VGwgoiMM6KjuSHKst+w6xHUeKNhampDPh9E1z1RPZnuIB8dRUYIyRu10/+x3ltEhIyioiY8g3wQEBJCRMgoJmpPRY3I52XZ0J6QPZahMEZyGoXcUMOloVgUiHmQDR3evSAACW+GxjQZujYAAAAASUVORK5CYII=');
+
+            background-position: -3px 0px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        #photo-viewer-close-btn:hover{
+         opacity: 1;   
+        }
+        
+        #photo-viewer-pane {
+            display: inline-block;
+            max-width: 90%;
+        }
+
+        #photo-div {
+            display: inline-block;
+            max-width: 90%;
+            max-height: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        #photo-div.portrait{
+            height: 100%;
+        }
+
+        #photo-left-btn {
+            display: inline-block;
+            position: absolute;
+            width: 50%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        #photo-left-btn #photo-left-btn-icon {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 28px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAABgCAYAAAAZz4LnAAAEtUlEQVR4AezWg49cQRwH8LNt27Zt39Xe6GyGDWv/d2euvRvX7fclc8nvpofZt3U7yTfYmfu88ZwLLV++fLmJqJB5F8GCtgvsb26e10iFHJdZAXSOtFed13CeNPyMjJ3Tdoy1OS7zF/ViFvlMcMUpbRRcG350Qr35iNzk1uHjaaMSxRUE+IBcYvlAPqhwCKW9I9B7FvYhsgtk4pcIePyBS+KCOPyOg52eCoCI+FT8+MVzfrv9+APy44+07EtoVvQSknNtzn97bf4v/8v/4oq4Ie4sbuw3p0EPJAXpR4aQbPYb+4A81EuC6urqptVq9YbFYlEqFIo1/JZHcFlobm1t7QJA/RdWTCaTGr9fQ3yEYQ7NA7pIUans7+9voe4G4oe4O4zW19cvATVQVKvVGvLz8++jvkQUpmj+aahGozFmZWU9Qn0LEkmnQghtbGxcslqtRopi4ST0Keq7kHgkgC2eqzBqs9l41JCRkfGEoYlIEOKJuImgBc3Nzcs8qlKpTkO9hNHW1lYJNfFoWlqahHbKQQsl1G63n0CVSqXeKbS9vX0FPTVT9OjoSJ+SkvKYoQkCKAqHoqc8qmNohyOoK1vN7I6OjlWgFooeHh7qKSqy+rS3Psg1bPYDih4cHOhTU1OlE9UtuqVocUf8kdvYm0dcb3Xp6emrqKtHwhBviorCFQ0NDQ9xumwUV6PgdC2hPofA7GSJTUUU0lVVVfXKbDbbuUtGmZubO436DNGpoIsXyOZxoLKy8g1wG8V1Op0SN5iEZ/I7QmS7BSNJEl5RUfH6FFzlKO56Gl5eXv4KL8MJ3GAwSPiMs3g/w608XlhYKOFZTuGlpaWn4ervhhuNRh7XFBcXzzqNA3kJzEJxfIzinnLxvrPwsrIyaVrS6NPkMF5UVPRSr9dbuHtlE3VX6GMqF38B3Ex7Ld039PmXi/diVzzb2dk5xMHRX7p0SXqtaygsBw9id3MzMo3MIK1IBJ0KuXgAEonEs0ioP/2nUC7uwXrnx+JDUNff6h/v/+UrM/ag20EQBGC8thXUtt3GtYK6ffraeIXel8wmkylnr4rzx3fe3d/9UwV1i4A2EFHa2ydE+5APAkJCiEg2lOeO25UQ8gmDSrKBa2SEkGLj2fLkHCAfoip+g5DEb+54CI8gHwRk4regJiYeTkUt8kFASOideL8nnikXr0RGqWUkhIh0HDGBHG+cH+XKONtIHLwgIx0HObHxPBsHMzaOpMBPmvgSmHkjfg9+viWOmHQcUUl8MDbeQByHICez5w9gKG18UeLXZs913LVuzrVxJGXij4hLxpbcsNfeW3EFSSEqHUdc3jcsIZ4vcppHUojKIOhUVkLFDBPecA+CQlI6irQQV/L9ZAh7TkUHckJQOoqwkJa8YqgLp+Kr0U5Qg5xM9Blh4RU5/6VfuXhE81T03EaRVfL9liwSy8Pt9uUomNFRJAV6ZE9tNPOzaBd4eSP6JNGNNNELGwU50VGwgoiMM6KjuSHKst+w6xHUeKNhampDPh9E1z1RPZnuIB8dRUYIyRu10/+x3ltEhIyioiY8g3wQEBJCRMgoJmpPRY3I52XZ0J6QPZahMEZyGoXcUMOloVgUiHmQDR3evSAACW+GxjQZujYAAAAASUVORK5CYII=');
+            background-repeat: no-repeat;
+            background-position: -3px -26px;
+            transition: all 0.2s;
+            opacity: 0.3;
+        }
+
+        #photo-left-btn:hover #photo-left-btn-icon, #photo-left-btn.hover #photo-left-btn-icon {
+            opacity: 1;
+
+        }
+
+        #photo-right-btn {
+            display: inline-block;
+            position: absolute;
+            width: 50%;
+            height: 100vh;
+            top: 0;
+            left: 50%;
+            cursor: pointer;
+        }
+
+
+        #photo-right-btn #photo-right-btn-icon {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 28px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAABgCAYAAAAZz4LnAAAEtUlEQVR4AezWg49cQRwH8LNt27Zt39Xe6GyGDWv/d2euvRvX7fclc8nvpofZt3U7yTfYmfu88ZwLLV++fLmJqJB5F8GCtgvsb26e10iFHJdZAXSOtFed13CeNPyMjJ3Tdoy1OS7zF/ViFvlMcMUpbRRcG350Qr35iNzk1uHjaaMSxRUE+IBcYvlAPqhwCKW9I9B7FvYhsgtk4pcIePyBS+KCOPyOg52eCoCI+FT8+MVzfrv9+APy44+07EtoVvQSknNtzn97bf4v/8v/4oq4Ie4sbuw3p0EPJAXpR4aQbPYb+4A81EuC6urqptVq9YbFYlEqFIo1/JZHcFlobm1t7QJA/RdWTCaTGr9fQ3yEYQ7NA7pIUans7+9voe4G4oe4O4zW19cvATVQVKvVGvLz8++jvkQUpmj+aahGozFmZWU9Qn0LEkmnQghtbGxcslqtRopi4ST0Keq7kHgkgC2eqzBqs9l41JCRkfGEoYlIEOKJuImgBc3Nzcs8qlKpTkO9hNHW1lYJNfFoWlqahHbKQQsl1G63n0CVSqXeKbS9vX0FPTVT9OjoSJ+SkvKYoQkCKAqHoqc8qmNohyOoK1vN7I6OjlWgFooeHh7qKSqy+rS3Psg1bPYDih4cHOhTU1OlE9UtuqVocUf8kdvYm0dcb3Xp6emrqKtHwhBviorCFQ0NDQ9xumwUV6PgdC2hPofA7GSJTUUU0lVVVfXKbDbbuUtGmZubO436DNGpoIsXyOZxoLKy8g1wG8V1Op0SN5iEZ/I7QmS7BSNJEl5RUfH6FFzlKO56Gl5eXv4KL8MJ3GAwSPiMs3g/w608XlhYKOFZTuGlpaWn4ervhhuNRh7XFBcXzzqNA3kJzEJxfIzinnLxvrPwsrIyaVrS6NPkMF5UVPRSr9dbuHtlE3VX6GMqF38B3Ex7Ld039PmXi/diVzzb2dk5xMHRX7p0SXqtaygsBw9id3MzMo3MIK1IBJ0KuXgAEonEs0ioP/2nUC7uwXrnx+JDUNff6h/v/+UrM/ag20EQBGC8thXUtt3GtYK6ffraeIXel8wmkylnr4rzx3fe3d/9UwV1i4A2EFHa2ydE+5APAkJCiEg2lOeO25UQ8gmDSrKBa2SEkGLj2fLkHCAfoip+g5DEb+54CI8gHwRk4regJiYeTkUt8kFASOideL8nnikXr0RGqWUkhIh0HDGBHG+cH+XKONtIHLwgIx0HObHxPBsHMzaOpMBPmvgSmHkjfg9+viWOmHQcUUl8MDbeQByHICez5w9gKG18UeLXZs913LVuzrVxJGXij4hLxpbcsNfeW3EFSSEqHUdc3jcsIZ4vcppHUojKIOhUVkLFDBPecA+CQlI6irQQV/L9ZAh7TkUHckJQOoqwkJa8YqgLp+Kr0U5Qg5xM9Blh4RU5/6VfuXhE81T03EaRVfL9liwSy8Pt9uUomNFRJAV6ZE9tNPOzaBd4eSP6JNGNNNELGwU50VGwgoiMM6KjuSHKst+w6xHUeKNhampDPh9E1z1RPZnuIB8dRUYIyRu10/+x3ltEhIyioiY8g3wQEBJCRMgoJmpPRY3I52XZ0J6QPZahMEZyGoXcUMOloVgUiHmQDR3evSAACW+GxjQZujYAAAAASUVORK5CYII=');
+            background-repeat: no-repeat;
+            background-position: -3px -64px;
+            transition: all 0.2s;
+            opacity: 0.3;
+        }
+
+        #photo-right-btn:hover #photo-right-btn-icon, #photo-right-btn.hover #photo-right-btn-icon {
+            opacity: 1;
+
+        }
+        
+        #photo-desc{
+             background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0px 0px 7px -1px;
+            padding: 5px;
+            
+        }
+
+    </style>
+
+    <script src="js_photoviewer.js"></script>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    var photos = {
+        0: {
+            src: "photos/1.jpg",
+            desc: "Lorem ipsum dolor sit amet, autem posidonium ad quo, illud summo sententiae est ea. Vel an viris nullam invenire."
+        },
+        1: {
+            src: "photos/2.jpg",
+            desc: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc"
+        },
+        2: {
+            src: "photos/3.jpg",
+            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione"
+        },
+        3: {
+            src: "photos/4.jpg",
+            desc: "Lorem ipsum dolor sit amet, autem posidonium ad quo, illud summo sententiae est ea. Vel an viris nullam invenire."
+        },
+        4: {
+            src: "photos/5.jpg",
+            desc: "Lorem ipsum dolor sit amet, autem posidonium ad quo, illud summo sententiae est ea. Vel an viris nullam invenire."
+        },
+        5: {
+            src: "photos/6.jpg",
+            desc: ""
+        },
+        6: {
+            src: "photos/7.jpg",
+            desc: "Lorem ipsum dolor sit amet, autem posidonium ad quo, illud summo sententiae est ea. Vel an viris nullam invenire."
+        },
+        7: {
+            src: "photos/8.png",
+            desc: ""
+        },
+    };
+
+
+    var fu1 = Photoviewer(photos, 0);
+
+</script>
+
+</html>
